@@ -64,6 +64,23 @@
   }
   .card h2{font-size:13px; font-weight:600; color:var(--text-dim); margin:0 0 12px;
     text-transform:none; letter-spacing:0.2px;}
+  .card h2 .h2-sub{font-weight:400; color:var(--text-faint); font-size:11.5px;}
+
+  /* ---------- Reminder banners ---------- */
+  .banner{
+    display:flex; align-items:center; gap:10px; background:var(--bg-elev-2);
+    border:1px solid var(--line); border-left:3px solid var(--cyan);
+    border-radius:var(--radius-sm); padding:11px 13px; margin-bottom:10px;
+    font-size:13px; cursor:pointer;
+  }
+  .banner .bi{font-size:16px; flex-shrink:0;}
+
+  /* ---------- Streak ---------- */
+  .streak-pill{
+    display:inline-flex; align-items:center; gap:6px; background:var(--bg-elev-2);
+    border:1px solid var(--line); border-radius:20px; padding:5px 12px 5px 10px;
+    font-size:12.5px; font-weight:600; color:var(--amber);
+  }
 
   /* ---------- Today: calorie ring + macros ---------- */
   .kcal-row{display:flex; align-items:center; gap:18px;}
@@ -94,10 +111,15 @@
   .quick-actions button.primary{background:var(--cyan); color:#08201f; border-color:var(--cyan);}
 
   .steps-row{display:flex; align-items:center; justify-content:space-between;}
-  .steps-row .steps-num{font-size:22px; font-weight:700;}
-  .steps-row .steps-status{font-size:11px; color:var(--text-faint); margin-top:2px;}
+  .steps-num{font-size:22px; font-weight:700;}
+  .steps-status{font-size:11px; color:var(--text-faint); margin-top:2px;}
   .badge-na{font-size:11px; color:var(--text-faint); background:var(--bg-elev-2);
     padding:4px 9px; border-radius:20px;}
+
+  /* ---------- Goal progress ---------- */
+  .goal-progress-track{height:9px; border-radius:6px; background:var(--bg-elev-2); overflow:hidden; margin:10px 0 8px;}
+  .goal-progress-fill{height:100%; border-radius:6px; background:linear-gradient(90deg,var(--cyan),var(--lime));}
+  .goal-eta{font-size:12px; color:var(--text-dim);}
 
   /* ---------- Meal list ---------- */
   .meal-block{margin-bottom:14px;}
@@ -117,6 +139,18 @@
     border-radius:var(--radius-sm); padding:10px; font-size:13px; font-weight:600; cursor:pointer;
   }
   .empty-note{font-size:12.5px; color:var(--text-faint); text-align:center; padding:22px 10px;}
+  .food-toolbar{display:flex; gap:10px; margin-bottom:14px;}
+  .food-toolbar button{
+    flex:1; background:var(--bg-elev); border:1px solid var(--line); color:var(--text-dim);
+    border-radius:var(--radius-sm); padding:10px 8px; font-size:12.5px; font-weight:600; cursor:pointer;
+  }
+
+  /* ---------- chips ---------- */
+  .chip-row{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:14px; -webkit-overflow-scrolling:touch;}
+  .chip{
+    flex-shrink:0; background:var(--bg-elev-2); border:1px solid var(--line); color:var(--text);
+    border-radius:20px; padding:8px 14px; font-size:12.5px; font-weight:600; cursor:pointer; white-space:nowrap;
+  }
 
   /* ---------- Bottom nav ---------- */
   nav.bottomnav{
@@ -150,6 +184,7 @@
     width:100%; background:var(--bg-elev-2); border:1px solid var(--line); color:var(--text);
     padding:12px 12px; border-radius:var(--radius-sm); font-size:15px;
   }
+  label.field input::placeholder{color:var(--text-faint);}
   label.field input:focus, label.field select:focus{outline:1px solid var(--cyan); border-color:var(--cyan);}
   .field-row{display:flex; gap:10px;}
   .field-row label.field{flex:1;}
@@ -196,11 +231,11 @@
     position:absolute; bottom:96px; left:50%; transform:translateX(-50%);
     background:var(--bg-elev-2); border:1px solid var(--line); color:var(--text);
     padding:10px 18px; border-radius:30px; font-size:13px; z-index:200; opacity:0;
-    transition:opacity .2s, transform .2s; pointer-events:none;
+    transition:opacity .2s, transform .2s; pointer-events:none; max-width:86%; text-align:center;
   }
   .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px);}
 
-  .placeholder-screen{text-align:center; padding:70px 20px 20px; color:var(--text-dim);}
+  .placeholder-screen{text-align:center; padding:36px 20px 20px; color:var(--text-dim);}
   .placeholder-screen .pi{font-size:40px; margin-bottom:14px;}
   .placeholder-screen h3{color:var(--text); font-size:16px; margin-bottom:8px;}
   .placeholder-screen p{font-size:13px; line-height:1.6; max-width:280px; margin:0 auto;}
@@ -216,6 +251,33 @@
     color:var(--text-dim); border-radius:var(--radius-sm); padding:10px; font-size:11px;
     font-family:monospace; resize:vertical;
   }
+
+  /* ---------- Workout ---------- */
+  .wo-ex-card{background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius-sm);
+    padding:13px; margin-bottom:10px;}
+  .wo-ex-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px;}
+  .wo-ex-head .name{font-size:14px; font-weight:700;}
+  .wo-ex-head .target{font-size:11.5px; color:var(--text-faint);}
+  .wo-last{font-size:11.5px; color:var(--text-faint); margin-bottom:10px;}
+  .wo-set-row{display:flex; align-items:center; gap:8px; margin-bottom:7px;}
+  .wo-set-row .set-idx{width:20px; font-size:12px; color:var(--text-faint); flex-shrink:0;}
+  .wo-set-row input{
+    background:var(--bg-elev-2); border:1px solid var(--line); color:var(--text);
+    border-radius:8px; padding:8px 10px; font-size:14px; width:0; flex:1; min-width:0;
+  }
+  .wo-set-row .set-check{
+    width:34px; height:34px; border-radius:8px; border:1px solid var(--line); background:var(--bg-elev-2);
+    color:var(--text-faint); flex-shrink:0; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .wo-set-row .set-check.done{background:var(--lime); border-color:var(--lime); color:#1c2405;}
+  .wo-summary{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+  .rest-bar{
+    position:sticky; bottom:0; margin:0 -16px 12px; padding:11px 16px; background:var(--cyan);
+    color:#07211f; font-weight:700; font-size:13.5px; display:flex; justify-content:space-between; align-items:center;
+  }
+  .rest-bar span.skip{font-weight:600; text-decoration:underline; cursor:pointer;}
+  .wo-hist-row{display:flex; justify-content:space-between; padding:10px 2px; border-bottom:1px solid var(--line); font-size:13px;}
+  .wo-hist-row:last-child{border-bottom:none;}
 </style>
 </head>
 <body>
@@ -233,6 +295,8 @@
 
     <!-- TODAY -->
     <section class="screen active" id="screen-today">
+      <div id="reminderBanners"></div>
+
       <div class="card">
         <div class="kcal-row">
           <div class="ring-wrap">
@@ -276,6 +340,23 @@
         <button onclick="openWeighIn()"><span class="qi">⚖</span>Weigh in</button>
       </div>
 
+      <div class="card" id="streakCard" style="display:none;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <div>
+            <div style="font-size:14px; font-weight:600;" id="streakText">—</div>
+            <div class="steps-status">Consecutive days with at least one food entry</div>
+          </div>
+          <div class="streak-pill" id="streakPill">🔥 0</div>
+        </div>
+      </div>
+
+      <div class="card" id="goalCard" style="display:none;">
+        <h2>Goal progress</h2>
+        <div class="kside-row"><span id="goalFromTo">–</span><span class="v" id="goalCurrentV">–</span></div>
+        <div class="goal-progress-track"><div class="goal-progress-fill" id="goalProgressFill" style="width:0%;"></div></div>
+        <div class="goal-eta" id="goalEtaText">Log a few more weigh-ins to see your trend.</div>
+      </div>
+
       <div class="card">
         <h2>Steps</h2>
         <div class="steps-row">
@@ -286,38 +367,27 @@
           <div class="badge-na">Stage 3</div>
         </div>
       </div>
-
-      <div class="card">
-        <h2>Next workout</h2>
-        <div class="steps-row">
-          <div>
-            <div style="font-size:14px; font-weight:600;">Not set up yet</div>
-            <div class="steps-status">Routine editor arrives in Stage 2</div>
-          </div>
-          <div class="badge-na">Stage 2</div>
-        </div>
-      </div>
     </section>
 
     <!-- FOOD -->
     <section class="screen" id="screen-food">
+      <div class="food-toolbar">
+        <button onclick="copyYesterday()">↺ Copy yesterday</button>
+        <button onclick="openAddFood()">＋ Add food</button>
+      </div>
       <div id="mealBlocks"></div>
-      <button class="add-food-btn" style="margin-bottom:14px;" onclick="openAddFood()">＋ Add food</button>
     </section>
 
-    <!-- WORKOUT (placeholder) -->
+    <!-- WORKOUT -->
     <section class="screen" id="screen-workout">
-      <div class="placeholder-screen">
-        <div class="pi">🏋️</div>
-        <h3>Workouts — Stage 2</h3>
-        <p>The routine editor, live sessions, rest timer and strength history land in the next build pass. Weight and food tracking already work today.</p>
-      </div>
+      <div id="workoutBody"></div>
     </section>
 
     <!-- PROGRESS -->
     <section class="screen" id="screen-progress">
       <div class="card">
         <h2>Weight trend</h2>
+        <div id="weightSparkline" style="margin-bottom:10px;"></div>
         <div id="weightSummary" style="margin-bottom:12px;"></div>
         <div id="weightList"></div>
         <button class="add-food-btn" style="margin-top:10px;" onclick="openWeighIn()">＋ Log weight</button>
@@ -326,8 +396,15 @@
         <h2>Calories, last 7 days</h2>
         <div id="kcalHistory"></div>
       </div>
-      <div class="placeholder-screen" style="padding-top:14px;">
-        <p>Workout comparisons and per-exercise trends arrive alongside the Stage 2 workout module.</p>
+      <div class="card">
+        <h2>Body measurements <span class="h2-sub">optional</span></h2>
+        <div id="measureSummary" style="margin-bottom:12px;"></div>
+        <div id="measureList"></div>
+        <button class="add-food-btn" style="margin-top:10px;" onclick="openMeasurement()">＋ Log measurements</button>
+      </div>
+      <div class="card">
+        <h2>Workout history</h2>
+        <div id="progressWorkoutHistory"></div>
       </div>
     </section>
 
@@ -355,6 +432,8 @@
           <option value="Snacks">Snacks</option>
         </select>
       </label>
+
+      <div id="recentFoodsPick"></div>
 
       <label class="field">
         <span class="lbl">Food name</span>
@@ -432,6 +511,21 @@
     </div>
   </div>
 
+  <!-- MEASUREMENT SHEET -->
+  <div class="overlay" id="overlayMeasurement">
+    <div class="sheet">
+      <div class="sheet-grip"></div>
+      <div class="sheet-head"><h3>Log measurements</h3><span class="close" onclick="closeOverlay('overlayMeasurement')">Close</span></div>
+      <label class="field"><span class="lbl">Date</span><input type="date" id="meDate"></label>
+      <div class="field-row">
+        <label class="field"><span class="lbl">Waist (cm)</span><input type="number" step="0.1" id="meWaist" placeholder="optional"></label>
+        <label class="field"><span class="lbl">Hips (cm)</span><input type="number" step="0.1" id="meHips" placeholder="optional"></label>
+      </div>
+      <label class="field"><span class="lbl">Chest (cm)</span><input type="number" step="0.1" id="meChest" placeholder="optional"></label>
+      <button class="btn btn-primary" onclick="submitMeasurement()">Save measurements</button>
+    </div>
+  </div>
+
   <!-- SETTINGS SHEET -->
   <div class="overlay" id="overlaySettings">
     <div class="sheet">
@@ -448,13 +542,35 @@
         <label class="field"><span class="lbl">Carbs (g)</span><input type="number" id="setCarb"></label>
         <label class="field"><span class="lbl">Fat (g)</span><input type="number" id="setFat"></label>
       </div>
+      <label class="field">
+        <span class="lbl">Goal weight (kg) — optional</span>
+        <input type="number" step="0.1" id="setGoalWeight" placeholder="leave blank to hide goal progress">
+      </label>
       <button class="btn btn-secondary" style="margin-bottom:22px;" onclick="saveTargets()">Save targets</button>
 
+      <h2>Reminders</h2>
+      <label class="field">
+        <span class="lbl">
+          <input type="checkbox" id="setRemindFood" style="width:auto; margin-right:6px;">
+          Nudge me on Today if I haven't logged food by evening
+        </span>
+      </label>
+      <label class="field" style="margin-bottom:22px;">
+        <span class="lbl">
+          <input type="checkbox" id="setRemindWeighIn" style="width:auto; margin-right:6px;">
+          Nudge me on Today for a morning weigh-in
+        </span>
+      </label>
+      <button class="btn btn-secondary" style="margin-bottom:22px;" onclick="saveReminders()">Save reminders</button>
+      <div class="steps-status" style="margin:-14px 0 22px;">These are in-app reminders shown when you open Today — not phone notifications, so they never fire in the background.</div>
+
       <h2>Data</h2>
-      <div class="list-row"><span>App version</span><span class="lr-arrow">Stage 1 · v0.1</span></div>
+      <div class="list-row"><span>App version</span><span class="lr-arrow">Stage 2 · v0.2</span></div>
       <div class="list-row"><span>Storage</span><span class="lr-arrow">On this device only</span></div>
       <button class="btn btn-ghost" style="margin:14px 0 10px;" onclick="showExport()">Export backup (JSON)</button>
-      <textarea class="export-box" id="exportBox" style="display:none;" readonly onclick="this.select()"></textarea>
+      <textarea class="export-box" id="exportBox" style="display:none; margin-bottom:10px;" readonly onclick="this.select()"></textarea>
+      <button class="btn btn-ghost" style="margin-bottom:10px;" onclick="document.getElementById('importFile').click()">Import backup (JSON)</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none;" onchange="importBackup(event)">
 
       <button class="btn btn-danger" style="margin-top:22px;" onclick="resetAll()">Reset all data</button>
     </div>
@@ -466,29 +582,33 @@
 
     <div class="ob-step active" id="ob-1">
       <div class="ob-title">Welcome to Daily Progress</div>
-      <div class="ob-sub">A private, offline food, weight and workout log. No account, no cloud sync — everything stays on this device. Let's confirm a few basics.</div>
+      <div class="ob-sub">A private, offline food, weight and workout log. No account, no cloud sync — everything you enter stays on this device. Nothing here is pre-filled with anyone's real data; enter your own to get started.</div>
       <div class="field-row">
         <label class="field">
           <span class="lbl">Sex</span>
-          <select id="obSex"><option value="male" selected>Male</option><option value="female">Female</option><option value="other">Other</option></select>
+          <select id="obSex"><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select>
         </label>
-        <label class="field"><span class="lbl">Age</span><input type="number" id="obAge" value="29"></label>
+        <label class="field"><span class="lbl">Age</span><input type="number" id="obAge" placeholder="e.g. 30"></label>
       </div>
       <div class="field-row">
-        <label class="field"><span class="lbl">Height (cm)</span><input type="number" id="obHeight" value="168"></label>
-        <label class="field"><span class="lbl">Starting weight (kg)</span><input type="number" id="obWeight" value="100" step="0.1"></label>
+        <label class="field"><span class="lbl">Height (cm)</span><input type="number" id="obHeight" placeholder="e.g. 175"></label>
+        <label class="field"><span class="lbl">Starting weight (kg)</span><input type="number" id="obWeight" step="0.1" placeholder="e.g. 90"></label>
       </div>
+      <label class="field">
+        <span class="lbl">Goal weight (kg) — optional</span>
+        <input type="number" step="0.1" id="obGoalWeight" placeholder="leave blank if unsure yet">
+      </label>
       <div class="ob-nav"><button class="btn btn-primary" onclick="obGo(2)">Continue</button></div>
     </div>
 
     <div class="ob-step" id="ob-2">
       <div class="ob-title">Daily targets</div>
-      <div class="ob-sub">Editable starting point — 1,950 kcal with 180g protein / 170g carbs / 60g fat. These macros work out to 1,940 kcal at 4/4/9; the 10 kcal gap is just rounding. Adjust anytime in Settings.</div>
-      <label class="field"><span class="lbl">Calories (kcal)</span><input type="number" id="obKcal" value="1950"></label>
+      <div class="ob-sub">Set your own daily calorie and macro targets — nothing is pre-filled. Not sure what to use? A common, gentle starting point is roughly 15–20% below your maintenance calories with protein around 1.6–2g per kg of goal weight. Adjust anytime in Settings.</div>
+      <label class="field"><span class="lbl">Calories (kcal)</span><input type="number" id="obKcal" placeholder="e.g. 1900"></label>
       <div class="field-row">
-        <label class="field"><span class="lbl">Protein (g)</span><input type="number" id="obProtein" value="180"></label>
-        <label class="field"><span class="lbl">Carbs (g)</span><input type="number" id="obCarb" value="170"></label>
-        <label class="field"><span class="lbl">Fat (g)</span><input type="number" id="obFat" value="60"></label>
+        <label class="field"><span class="lbl">Protein (g)</span><input type="number" id="obProtein" placeholder="e.g. 150"></label>
+        <label class="field"><span class="lbl">Carbs (g)</span><input type="number" id="obCarb" placeholder="e.g. 170"></label>
+        <label class="field"><span class="lbl">Fat (g)</span><input type="number" id="obFat" placeholder="e.g. 60"></label>
       </div>
       <div class="ob-nav">
         <button class="btn btn-ghost" onclick="obGo(1)">Back</button>
@@ -498,7 +618,7 @@
 
     <div class="ob-step" id="ob-3">
       <div class="ob-title">Ready to go</div>
-      <div class="ob-sub">No history is pre-filled — your diary starts empty today. Steps sync, workouts, barcode scanning and reminders arrive in later builds; food logging and weight tracking work fully offline right now.</div>
+      <div class="ob-sub">No history is pre-filled — your diary starts empty today. A 3-day full-body workout template is ready in the Workout tab whenever you want to use it. Steps sync, barcode scanning and phone notifications are later-stage additions; food logging, weight, measurements and workouts work fully offline right now.</div>
       <div class="ob-nav"><button class="btn btn-primary" onclick="finishOnboarding()">Start using the app</button></div>
     </div>
   </div>
@@ -520,24 +640,44 @@ function saveState(){
   try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
   catch(e){ console.warn('storage write failed', e); }
 }
-function todayStr(){
-  const d = new Date();
+function dateKey(d){
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
+function todayStr(){ return dateKey(new Date()); }
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function round1(n){ return Math.round(n*10)/10; }
+
+/* ---------------- workout template ---------------- */
+const WORKOUT_EXERCISES = [
+  {id:'leg_press', name:'Leg Press', sets:3, target:'10-12 reps', rest:90},
+  {id:'chest_press', name:'Chest Press', sets:3, target:'8-10 reps', rest:90},
+  {id:'seated_row', name:'Seated Row', sets:3, target:'10-12 reps', rest:75},
+  {id:'leg_curl', name:'Leg Curl', sets:3, target:'10-12 reps', rest:60},
+  {id:'lat_pulldown', name:'Lat Pulldown', sets:3, target:'10-12 reps', rest:75},
+  {id:'shoulder_press', name:'Shoulder Press', sets:3, target:'8-10 reps', rest:75},
+  {id:'core', name:'Core (plank / crunches)', sets:2, target:'30-45s or 15 reps', rest:45},
+  {id:'cardio', name:'Easy cardio (optional)', sets:1, target:'10-15 min', rest:0},
+];
 
 /* ---------------- default state ---------------- */
 function defaultState(){
   return {
     onboarded:false,
-    profile:{ sex:'male', age:29, heightCm:168 },
-    targets:{ kcal:1950, protein:180, carb:170, fat:60 },
+    profile:{ sex:'male', age:null, heightCm:null, goalWeightKg:null },
+    targets:{ kcal:0, protein:0, carb:0, fat:0 },
+    reminders:{ food:true, weighIn:true },
     foods:[],          // saved/custom foods {id,name,kcalPer100,proteinPer100,carbPer100,fatPer100}
     diary:{},          // date -> [{id, meal, name, amount, unit, kcal, protein, carb, fat}]
-    weights:[]         // {date, kg}
+    weights:[],         // {date, kg}
+    measurements:[],    // {id, date, waist, hips, chest}
+    workoutSessions:[], // {id, date, entries:[{exerciseId, sets:[{weight,reps,done}]}], completed, restEndsAt}
   };
 }
 let state = loadState() || defaultState();
+if(!state.reminders) state.reminders = { food:true, weighIn:true };
+if(!state.measurements) state.measurements = [];
+if(!state.workoutSessions) state.workoutSessions = [];
+if(state.profile && state.profile.goalWeightKg === undefined) state.profile.goalWeightKg = null;
 
 /* ---------------- screen switching ---------------- */
 function switchScreen(name){
@@ -545,11 +685,12 @@ function switchScreen(name){
   document.getElementById('screen-'+name).classList.add('active');
   document.querySelectorAll('.bottomnav button').forEach(b=>b.classList.toggle('active', b.dataset.screen===name));
   const titles = {today:['Today',''], food:['Food','Breakfast · Lunch · Dinner · Snacks'],
-    workout:['Workout',''], progress:['Progress','']};
+    workout:['Workout','3-day full body template'], progress:['Progress','']};
   document.getElementById('topbarTitle').textContent = titles[name][0];
   document.getElementById('topbarSub').textContent = name==='today' ? niceDate(todayStr()) : titles[name][1];
   if(name==='today') renderToday();
   if(name==='food') renderFood();
+  if(name==='workout') renderWorkout();
   if(name==='progress') renderProgress();
 }
 function niceDate(d){
@@ -562,10 +703,13 @@ function openOverlay(id){ document.getElementById(id).classList.add('show'); }
 function closeOverlay(id){ document.getElementById(id).classList.remove('show'); }
 
 function openSettings(){
-  document.getElementById('setKcal').value = state.targets.kcal;
-  document.getElementById('setProtein').value = state.targets.protein;
-  document.getElementById('setCarb').value = state.targets.carb;
-  document.getElementById('setFat').value = state.targets.fat;
+  document.getElementById('setKcal').value = state.targets.kcal || '';
+  document.getElementById('setProtein').value = state.targets.protein || '';
+  document.getElementById('setCarb').value = state.targets.carb || '';
+  document.getElementById('setFat').value = state.targets.fat || '';
+  document.getElementById('setGoalWeight').value = state.profile.goalWeightKg || '';
+  document.getElementById('setRemindFood').checked = !!state.reminders.food;
+  document.getElementById('setRemindWeighIn').checked = !!state.reminders.weighIn;
   document.getElementById('exportBox').style.display='none';
   openOverlay('overlaySettings');
 }
@@ -576,8 +720,18 @@ function saveTargets(){
     carb: Number(document.getElementById('setCarb').value)||0,
     fat: Number(document.getElementById('setFat').value)||0,
   };
+  const gw = document.getElementById('setGoalWeight').value;
+  state.profile.goalWeightKg = gw!=='' ? Number(gw) : null;
   saveState(); renderToday();
   toast('Targets saved');
+}
+function saveReminders(){
+  state.reminders = {
+    food: document.getElementById('setRemindFood').checked,
+    weighIn: document.getElementById('setRemindWeighIn').checked,
+  };
+  saveState(); renderToday();
+  toast('Reminders saved');
 }
 function showExport(){
   const box = document.getElementById('exportBox');
@@ -585,8 +739,36 @@ function showExport(){
   box.value = JSON.stringify(state, null, 1);
   box.focus(); box.select();
 }
+function importBackup(evt){
+  const file = evt.target.files && evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    let parsed;
+    try{ parsed = JSON.parse(reader.result); }
+    catch(e){ toast('That file is not valid JSON'); evt.target.value=''; return; }
+    if(!parsed || typeof parsed!=='object' || !('diary' in parsed) || !('weights' in parsed) || !('targets' in parsed)){
+      toast('That file doesn\'t look like a Daily Progress backup'); evt.target.value=''; return;
+    }
+    const days = Object.keys(parsed.diary||{}).length;
+    const weighIns = (parsed.weights||[]).length;
+    if(!confirm(`Import this backup?\n\n${days} diary day(s), ${weighIns} weigh-in(s).\n\nThis replaces all data currently on this device.`)){
+      evt.target.value=''; return;
+    }
+    state = Object.assign(defaultState(), parsed);
+    if(!state.reminders) state.reminders = { food:true, weighIn:true };
+    if(!state.measurements) state.measurements = [];
+    if(!state.workoutSessions) state.workoutSessions = [];
+    saveState();
+    evt.target.value='';
+    closeOverlay('overlaySettings');
+    toast('Backup imported');
+    switchScreen('today');
+  };
+  reader.readAsText(file);
+}
 function resetAll(){
-  if(!confirm('This deletes all local data (diary, weights, saved foods, targets). This cannot be undone. Continue?')) return;
+  if(!confirm('This deletes all local data (diary, weights, measurements, workouts, saved foods, targets). This cannot be undone. Continue?')) return;
   state = defaultState();
   saveState();
   closeOverlay('overlaySettings');
@@ -600,7 +782,7 @@ function toast(msg){
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'), 1600);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 1800);
 }
 
 /* ---------------- onboarding ---------------- */
@@ -610,15 +792,17 @@ function obGo(step){
   for(let i=1;i<=3;i++) document.getElementById('obp'+i).classList.toggle('done', i<=step);
 }
 function finishOnboarding(){
+  const goalW = document.getElementById('obGoalWeight').value;
   state.profile = {
     sex: document.getElementById('obSex').value,
     age: Number(document.getElementById('obAge').value)||null,
     heightCm: Number(document.getElementById('obHeight').value)||null,
+    goalWeightKg: goalW!=='' ? Number(goalW) : null,
   };
   state.targets = {
-    kcal: Number(document.getElementById('obKcal').value)||1950,
-    protein: Number(document.getElementById('obProtein').value)||180,
-    carb: Number(document.getElementById('obCarb').value)||170,
+    kcal: Number(document.getElementById('obKcal').value)||2000,
+    protein: Number(document.getElementById('obProtein').value)||140,
+    carb: Number(document.getElementById('obCarb').value)||180,
     fat: Number(document.getElementById('obFat').value)||60,
   };
   const w = Number(document.getElementById('obWeight').value);
@@ -627,6 +811,42 @@ function finishOnboarding(){
   saveState();
   document.getElementById('onboarding').classList.remove('show');
   switchScreen('today');
+}
+
+/* ---------------- recent + saved foods ---------------- */
+function getRecentEntries(){
+  const all = [];
+  Object.keys(state.diary).sort().reverse().forEach(day=>{
+    (state.diary[day]||[]).slice().reverse().forEach(e=> all.push(e));
+  });
+  const seen = new Set(); const out=[];
+  for(const e of all){
+    if(!seen.has(e.name)){ seen.add(e.name); out.push(e); if(out.length>=8) break; }
+  }
+  return out;
+}
+function renderRecentFoodsPick(){
+  const wrap = document.getElementById('recentFoodsPick');
+  const recents = getRecentEntries();
+  if(!recents.length){ wrap.innerHTML=''; return; }
+  wrap.innerHTML = `<div class="lbl" style="font-size:12px;color:var(--text-dim);margin-bottom:8px;font-weight:600;">Recently logged</div>
+    <div class="chip-row">${recents.map(e=>`<div class="chip" onclick="pickRecentFood('${e.id}')">${escapeHtml(e.name)}</div>`).join('')}</div>`;
+}
+function pickRecentFood(entryId){
+  let found = null;
+  for(const day of Object.keys(state.diary)){
+    const e = (state.diary[day]||[]).find(x=>x.id===entryId);
+    if(e){ found = e; break; }
+  }
+  if(!found) return;
+  document.getElementById('afName').value = found.name;
+  document.getElementById('afUnit').value = found.unit || 'g';
+  document.getElementById('afAmount').value = found.amount;
+  setAfMode('total');
+  document.getElementById('afKcal').value = found.kcal;
+  document.getElementById('afProtein').value = found.protein ?? '';
+  document.getElementById('afCarb').value = found.carb ?? '';
+  document.getElementById('afFat').value = found.fat ?? '';
 }
 
 /* ---------------- add food ---------------- */
@@ -646,6 +866,7 @@ function openAddFood(){
   document.getElementById('afFat').value='';
   document.getElementById('afSave').checked=false;
   setAfMode('total');
+  renderRecentFoodsPick();
   renderSavedFoodsPick();
   openOverlay('overlayAddFood');
 }
@@ -720,13 +941,25 @@ function submitAddFood(){
   toast('Added to '+meal);
   renderToday(); renderFood();
 }
-function round1(n){ return Math.round(n*10)/10; }
 
 function deleteFoodEntry(id){
   const day = todayStr();
   if(!state.diary[day]) return;
   state.diary[day] = state.diary[day].filter(e=>e.id!==id);
   saveState();
+  renderToday(); renderFood();
+}
+
+function copyYesterday(){
+  const y = new Date(); y.setDate(y.getDate()-1);
+  const key = dateKey(y);
+  const entries = state.diary[key]||[];
+  if(!entries.length){ toast('No entries logged yesterday'); return; }
+  const day = todayStr();
+  if(!state.diary[day]) state.diary[day]=[];
+  entries.forEach(e=> state.diary[day].push(Object.assign({}, e, {id:uid()})));
+  saveState();
+  toast('Copied '+entries.length+' item(s) from yesterday');
   renderToday(); renderFood();
 }
 
@@ -748,6 +981,84 @@ function submitWeighIn(){
   closeOverlay('overlayWeighIn');
   toast('Weight saved');
   renderToday(); renderProgress();
+}
+
+/* ---------------- measurements ---------------- */
+function openMeasurement(){
+  document.getElementById('meDate').value = todayStr();
+  document.getElementById('meWaist').value='';
+  document.getElementById('meHips').value='';
+  document.getElementById('meChest').value='';
+  openOverlay('overlayMeasurement');
+}
+function submitMeasurement(){
+  const date = document.getElementById('meDate').value || todayStr();
+  const waist = document.getElementById('meWaist').value;
+  const hips = document.getElementById('meHips').value;
+  const chest = document.getElementById('meChest').value;
+  if(waist==='' && hips==='' && chest===''){ toast('Enter at least one measurement'); return; }
+  state.measurements = state.measurements.filter(m=>m.date!==date);
+  state.measurements.push({
+    id:uid(), date,
+    waist: waist!==''?Number(waist):null,
+    hips: hips!==''?Number(hips):null,
+    chest: chest!==''?Number(chest):null,
+  });
+  state.measurements.sort((a,b)=>a.date.localeCompare(b.date));
+  saveState();
+  closeOverlay('overlayMeasurement');
+  toast('Measurements saved');
+  renderProgress();
+}
+
+/* ---------------- streak ---------------- */
+function calcStreak(){
+  let d = new Date();
+  let loggedToday = (state.diary[dateKey(d)]||[]).length>0;
+  if(!loggedToday) d.setDate(d.getDate()-1);
+  let streak = 0;
+  while(true){
+    const key = dateKey(d);
+    if((state.diary[key]||[]).length>0){ streak++; d.setDate(d.getDate()-1); }
+    else break;
+  }
+  return {streak, loggedToday};
+}
+
+/* ---------------- goal progress ---------------- */
+function goalEta(lastWeight, ws){
+  const goal = state.profile.goalWeightKg;
+  if(!goal || ws.length<2) return null;
+  const last = ws[ws.length-1];
+  const cutoff = new Date(last.date+'T00:00:00'); cutoff.setDate(cutoff.getDate()-28);
+  const recent = ws.filter(w=> new Date(w.date+'T00:00:00') >= cutoff);
+  if(recent.length<2) return null;
+  const first = recent[0];
+  const days = (new Date(last.date+'T00:00:00') - new Date(first.date+'T00:00:00'))/86400000;
+  if(days<=0) return null;
+  const ratePerWeek = (last.kg-first.kg)/days*7;
+  const remaining = goal-last.kg;
+  if(Math.abs(remaining) < 0.05) return {ratePerWeek, atGoal:true};
+  if((remaining>0 && ratePerWeek>=-0.01) || (remaining<0 && ratePerWeek<=0.01)) return {ratePerWeek, weeks:null};
+  const weeks = Math.abs(remaining/ratePerWeek);
+  return {ratePerWeek, weeks};
+}
+
+/* ---------------- reminders ---------------- */
+function renderReminders(){
+  const wrap = document.getElementById('reminderBanners');
+  const day = todayStr();
+  const loggedFood = (state.diary[day]||[]).length>0;
+  const loggedWeight = state.weights.some(w=>w.date===day);
+  const hour = new Date().getHours();
+  let html='';
+  if(state.reminders.food && !loggedFood && hour>=18){
+    html += `<div class="banner" onclick="openAddFood()"><span class="bi">🍽️</span><span>No food logged yet today — tap to add something</span></div>`;
+  }
+  if(state.reminders.weighIn && !loggedWeight && hour>=5 && hour<13){
+    html += `<div class="banner" onclick="openWeighIn()"><span class="bi">⚖️</span><span>Morning weigh-in not logged yet</span></div>`;
+  }
+  wrap.innerHTML = html;
 }
 
 /* ---------------- rendering: TODAY ---------------- */
@@ -773,6 +1084,43 @@ function renderToday(){
   setMacro('P', p, state.targets.protein);
   setMacro('C', c, state.targets.carb);
   setMacro('F', f, state.targets.fat);
+
+  renderReminders();
+
+  const {streak, loggedToday} = calcStreak();
+  const streakCard = document.getElementById('streakCard');
+  if(streak>0){
+    streakCard.style.display='block';
+    document.getElementById('streakPill').textContent = '🔥 '+streak;
+    document.getElementById('streakText').textContent = loggedToday
+      ? (streak===1 ? '1 day logged so far' : streak+' days logged in a row')
+      : 'Log today to keep your '+streak+'-day streak';
+  } else {
+    streakCard.style.display='none';
+  }
+
+  const goalCard = document.getElementById('goalCard');
+  const ws = state.weights.slice().sort((a,b)=>a.date.localeCompare(b.date));
+  if(state.profile.goalWeightKg && ws.length>0){
+    goalCard.style.display='block';
+    const start = ws[0].kg;
+    const current = ws[ws.length-1].kg;
+    const goal = state.profile.goalWeightKg;
+    document.getElementById('goalFromTo').textContent = `${start} kg → ${goal} kg`;
+    document.getElementById('goalCurrentV').textContent = current+' kg now';
+    const total = start-goal;
+    const done = start-current;
+    const pct2 = total!==0 ? Math.max(0, Math.min(100, (done/total)*100)) : 0;
+    document.getElementById('goalProgressFill').style.width = pct2+'%';
+    const eta = goalEta(current, ws);
+    const etaEl = document.getElementById('goalEtaText');
+    if(!eta){ etaEl.textContent = 'Log a few more weigh-ins to see your trend.'; }
+    else if(eta.atGoal){ etaEl.textContent = 'You\'re at your goal weight — nice work.'; }
+    else if(eta.weeks==null){ etaEl.textContent = 'Recent trend isn\'t moving toward your goal yet.'; }
+    else { etaEl.textContent = `~${Math.abs(eta.ratePerWeek).toFixed(2)} kg/week — about ${Math.ceil(eta.weeks)} week(s) to goal at this pace.`; }
+  } else {
+    goalCard.style.display='none';
+  }
 }
 function setMacro(letter, val, target){
   const bar = document.getElementById('bar'+letter);
@@ -816,9 +1164,171 @@ function renderFood(){
   document.getElementById('mealBlocks').innerHTML = html;
 }
 
+/* ---------------- rendering: WORKOUT ---------------- */
+let restTimerInterval = null;
+function todaySession(){
+  const day = todayStr();
+  return state.workoutSessions.find(s=>s.date===day && !s.completed);
+}
+function lastCompletedSession(beforeId){
+  const done = state.workoutSessions.filter(s=>s.completed && s.id!==beforeId);
+  done.sort((a,b)=>b.date.localeCompare(a.date));
+  return done[0] || null;
+}
+function startWorkout(){
+  const session = {
+    id:uid(), date:todayStr(), completed:false, restEndsAt:null,
+    entries: WORKOUT_EXERCISES.map(ex=>({
+      exerciseId:ex.id,
+      sets: Array.from({length:ex.sets}, ()=>({weight:'', reps:'', done:false}))
+    }))
+  };
+  state.workoutSessions.push(session);
+  saveState();
+  renderWorkout();
+}
+function setSetField(sessionId, exerciseId, setIdx, field, value){
+  const session = state.workoutSessions.find(s=>s.id===sessionId);
+  if(!session) return;
+  const entry = session.entries.find(e=>e.exerciseId===exerciseId);
+  if(!entry) return;
+  entry.sets[setIdx][field] = value;
+  saveState();
+}
+function toggleSetDone(sessionId, exerciseId, setIdx){
+  const session = state.workoutSessions.find(s=>s.id===sessionId);
+  if(!session) return;
+  const entry = session.entries.find(e=>e.exerciseId===exerciseId);
+  if(!entry) return;
+  const set = entry.sets[setIdx];
+  set.done = !set.done;
+  if(set.done){
+    const ex = WORKOUT_EXERCISES.find(x=>x.id===exerciseId);
+    if(ex && ex.rest>0){ session.restEndsAt = Date.now() + ex.rest*1000; }
+  }
+  saveState();
+  renderWorkout();
+}
+function skipRest(sessionId){
+  const session = state.workoutSessions.find(s=>s.id===sessionId);
+  if(session){ session.restEndsAt = null; saveState(); }
+  renderWorkout();
+}
+function completeWorkout(sessionId){
+  const session = state.workoutSessions.find(s=>s.id===sessionId);
+  if(!session) return;
+  session.completed = true;
+  session.restEndsAt = null;
+  saveState();
+  toast('Workout saved');
+  renderWorkout();
+}
+function discardWorkout(sessionId){
+  if(!confirm('Discard today\'s in-progress workout?')) return;
+  state.workoutSessions = state.workoutSessions.filter(s=>s.id!==sessionId);
+  saveState();
+  renderWorkout();
+}
+function formatLastSet(session, exerciseId, setIdx){
+  if(!session) return null;
+  const entry = session.entries.find(e=>e.exerciseId===exerciseId);
+  if(!entry || !entry.sets[setIdx]) return null;
+  const s = entry.sets[setIdx];
+  if(s.weight==='' && s.reps==='') return null;
+  return `${s.weight||'-'}kg × ${s.reps||'-'}`;
+}
+function renderWorkout(){
+  if(restTimerInterval){ clearInterval(restTimerInterval); restTimerInterval=null; }
+  const wrap = document.getElementById('workoutBody');
+  const session = todaySession();
+
+  if(!session){
+    const lastAny = state.workoutSessions.filter(s=>s.completed).sort((a,b)=>b.date.localeCompare(a.date))[0];
+    wrap.innerHTML = `
+      <div class="card">
+        <h2>3-day full-body routine <span class="h2-sub">editable template</span></h2>
+        <p style="font-size:13px; color:var(--text-dim); line-height:1.6; margin:0 0 14px;">
+          Leg press, chest press, seated row, leg curl, lat pulldown, shoulder press, core, plus optional easy cardio.
+          Aim for this session roughly 3 times a week — start it whenever you're training, no fixed schedule required.
+        </p>
+        <button class="btn btn-primary" onclick="startWorkout()">Start today's workout</button>
+      </div>
+      ${lastAny ? `<div class="card"><h2>Last session</h2><div class="steps-status">${niceDate(lastAny.date)} · completed</div></div>` : ''}
+    `;
+    return;
+  }
+
+  const prev = lastCompletedSession(session.id);
+  let restHtml = '';
+  if(session.restEndsAt && session.restEndsAt > Date.now()){
+    restHtml = `<div class="rest-bar" id="restBar">Rest: <span id="restCountdown"></span>s <span class="skip" onclick="skipRest('${session.id}')">Skip</span></div>`;
+  }
+
+  let exHtml = '';
+  WORKOUT_EXERCISES.forEach(ex=>{
+    const entry = session.entries.find(e=>e.exerciseId===ex.id);
+    const lastNote = prev ? [0,1,2].map(i=>formatLastSet(prev, ex.id, i)).filter(Boolean).join('  ·  ') : '';
+    exHtml += `<div class="wo-ex-card">
+      <div class="wo-ex-head"><span class="name">${ex.name}</span><span class="target">${ex.target}</span></div>
+      ${lastNote ? `<div class="wo-last">Last time: ${lastNote}</div>` : `<div class="wo-last">No previous session yet</div>`}
+      ${entry.sets.map((s,i)=>`
+        <div class="wo-set-row">
+          <div class="set-idx">${i+1}</div>
+          <input type="number" placeholder="kg" value="${s.weight}" oninput="setSetField('${session.id}','${ex.id}',${i},'weight',this.value)">
+          <input type="number" placeholder="reps" value="${s.reps}" oninput="setSetField('${session.id}','${ex.id}',${i},'reps',this.value)">
+          <div class="set-check ${s.done?'done':''}" onclick="toggleSetDone('${session.id}','${ex.id}',${i})">${s.done?'✓':''}</div>
+        </div>
+      `).join('')}
+    </div>`;
+  });
+
+  const totalSets = session.entries.reduce((s,e)=>s+e.sets.length,0);
+  const doneSets = session.entries.reduce((s,e)=>s+e.sets.filter(x=>x.done).length,0);
+
+  wrap.innerHTML = `
+    ${restHtml}
+    <div class="wo-summary">
+      <div class="steps-status">${doneSets} / ${totalSets} sets done</div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-ghost" style="width:auto; padding:8px 12px; font-size:12.5px;" onclick="discardWorkout('${session.id}')">Discard</button>
+      </div>
+    </div>
+    ${exHtml}
+    <button class="btn btn-primary" style="margin-top:4px;" onclick="completeWorkout('${session.id}')">Finish workout</button>
+  `;
+
+  if(session.restEndsAt && session.restEndsAt > Date.now()){
+    const tick = ()=>{
+      const remain = Math.max(0, Math.round((session.restEndsAt - Date.now())/1000));
+      const el = document.getElementById('restCountdown');
+      if(el) el.textContent = remain;
+      if(remain<=0){ session.restEndsAt=null; saveState(); clearInterval(restTimerInterval); renderWorkout(); }
+    };
+    tick();
+    restTimerInterval = setInterval(tick, 1000);
+  }
+}
+
 /* ---------------- rendering: PROGRESS ---------------- */
+function renderSparkline(ws){
+  if(ws.length<2) return '<div class="empty-note" style="padding:10px 0;">Log at least two weigh-ins to see a trend line</div>';
+  const w=280,h=70,pad=8;
+  const vals = ws.map(x=>x.kg);
+  const min=Math.min(...vals), max=Math.max(...vals);
+  const range = (max-min)||1;
+  const stepX = ws.length>1 ? (w-2*pad)/(ws.length-1) : 0;
+  const pts = ws.map((p,i)=>{
+    const x = pad + i*stepX;
+    const y = pad + (1-(p.kg-min)/range)*(h-2*pad);
+    return x.toFixed(1)+','+y.toFixed(1);
+  }).join(' ');
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block;width:100%;height:auto;">
+    <polyline points="${pts}" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
 function renderProgress(){
   const ws = state.weights.slice().sort((a,b)=>a.date.localeCompare(b.date));
+  document.getElementById('weightSparkline').innerHTML = renderSparkline(ws.slice(-30));
   const summaryEl = document.getElementById('weightSummary');
   if(ws.length===0){
     summaryEl.innerHTML = '<div class="empty-note">No weigh-ins yet</div>';
@@ -827,7 +1337,7 @@ function renderProgress(){
     const last7 = ws.slice(-7);
     const avg7 = round1(last7.reduce((s,w)=>s+w.kg,0)/last7.length);
     summaryEl.innerHTML = `<div class="kside-row"><span>Latest</span><span class="v">${last.kg} kg (${last.date})</span></div>
-      <div class="kside-row"><span>7-day average</span><span class="v">${avg7} kg</span></div>`;
+      <div class="kside-row"><span>7-entry average</span><span class="v">${avg7} kg</span></div>`;
   }
   const listEl = document.getElementById('weightList');
   if(ws.length===0){ listEl.innerHTML=''; }
@@ -840,7 +1350,7 @@ function renderProgress(){
   const d = new Date();
   for(let i=6;i>=0;i--){
     const dt = new Date(d); dt.setDate(d.getDate()-i);
-    const key = dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+    const key = dateKey(dt);
     const entries = state.diary[key] || [];
     const kcal = entries.reduce((s,e)=>s+e.kcal,0);
     hist.push({key, kcal});
@@ -855,6 +1365,38 @@ function renderProgress(){
       <div class="amt">${h.kcal} kcal</div>
     </div>`;
   }).join('');
+
+  const ms = state.measurements.slice().sort((a,b)=>a.date.localeCompare(b.date));
+  const measureSummary = document.getElementById('measureSummary');
+  if(ms.length===0){
+    measureSummary.innerHTML = '<div class="empty-note">No measurements yet</div>';
+  } else {
+    const last = ms[ms.length-1];
+    const parts = [];
+    if(last.waist!=null) parts.push('Waist '+last.waist+' cm');
+    if(last.hips!=null) parts.push('Hips '+last.hips+' cm');
+    if(last.chest!=null) parts.push('Chest '+last.chest+' cm');
+    measureSummary.innerHTML = `<div class="kside-row"><span>Latest (${niceDate(last.date)})</span><span class="v">${parts.join(' · ')||'—'}</span></div>`;
+  }
+  document.getElementById('measureList').innerHTML = ms.slice().reverse().slice(0,8).map(m=>{
+    const parts = [];
+    if(m.waist!=null) parts.push('W '+m.waist);
+    if(m.hips!=null) parts.push('H '+m.hips);
+    if(m.chest!=null) parts.push('C '+m.chest);
+    return `<div class="list-row"><span>${niceDate(m.date)}</span><span>${parts.join(' · ')} cm</span></div>`;
+  }).join('');
+
+  const done = state.workoutSessions.filter(s=>s.completed).sort((a,b)=>b.date.localeCompare(a.date));
+  const woWrap = document.getElementById('progressWorkoutHistory');
+  if(done.length===0){
+    woWrap.innerHTML = '<div class="empty-note">No completed workouts yet</div>';
+  } else {
+    woWrap.innerHTML = done.slice(0,8).map(s=>{
+      const totalSets = s.entries.reduce((a,e)=>a+e.sets.filter(x=>x.done).length,0);
+      const volume = s.entries.reduce((a,e)=>a+e.sets.reduce((a2,x)=>a2+((Number(x.weight)||0)*(Number(x.reps)||0)),0),0);
+      return `<div class="wo-hist-row"><span>${niceDate(s.date)}</span><span>${totalSets} sets · ${Math.round(volume)} kg·reps</span></div>`;
+    }).join('');
+  }
 }
 
 /* ---------------- init ---------------- */

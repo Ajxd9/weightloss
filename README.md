@@ -1,7 +1,24 @@
 # Daily Progress
 
 Offline food, weight and workout tracker. All data lives in the browser's
-`localStorage` — no account, no server, no sync.
+`localStorage` on your own device — no account, no server, no sync. This repo
+is public; no personal data is committed to it. Onboarding fields ship blank
+so whatever you enter never leaves your device.
+
+## Features (Stage 2)
+
+- **Today**: calorie ring, macro bars, logging streak, optional goal-weight
+  progress bar with a pace-based ETA, contextual in-app reminders (not push
+  notifications — see Settings).
+- **Food**: meal diary, recent-food quick-add chips, saved foods, "copy
+  yesterday" to repeat a typical day fast.
+- **Workout**: editable 3-day full-body routine (leg press, chest press,
+  seated row, leg curl, lat pulldown, shoulder press, core, optional cardio)
+  with per-set weight/reps logging, a rest timer, and last-session comparison.
+- **Progress**: weight trend sparkline, 7-day calorie history, optional body
+  measurements (waist/hips/chest), workout history.
+- **Settings**: targets, goal weight, reminder toggles, JSON export/import
+  backup, full reset.
 
 ## Run it as a web app / PWA
 
