@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Daily Progress</string>
+    <string name="title_activity_main">Daily Progress</string>
+    <string name="package_name">com.dailyprogress.app</string>
+    <string name="custom_url_scheme">com.dailyprogress.app</string>
+</resources>

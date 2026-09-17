@@ -1,0 +1,9 @@
+{
+  "appId": "com.dailyprogress.app",
+  "appName": "Daily Progress",
+  "webDir": "www",
+  "backgroundColor": "#14161a",
+  "android": {
+    "backgroundColor": "#14161a"
+  }
+}
