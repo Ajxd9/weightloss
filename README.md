@@ -11,7 +11,12 @@ so whatever you enter never leaves your device.
   progress bar with a pace-based ETA, contextual in-app reminders (not push
   notifications — see Settings).
 - **Food**: meal diary, recent-food quick-add chips, saved foods, "copy
-  yesterday" to repeat a typical day fast.
+  yesterday" to repeat a typical day fast, plus product search and barcode
+  scanning via [Open Food Facts](https://world.openfoodfacts.org) for
+  packaged foods — falls back to manual entry for anything not in that
+  database (homemade dishes, raw ingredients, unlisted products). Barcode
+  scanning needs a browser with camera + `BarcodeDetector` support (Chrome on
+  Android); other browsers get search and manual entry only.
 - **Workout**: pick your own routine from a library of strength exercises
   (legs, push, pull, core) and cardio machines (treadmill, cycling,
   elliptical, walking, rowing). Strength exercises log weight/reps per set
