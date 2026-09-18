@@ -526,6 +526,17 @@
     </div>
   </div>
 
+  <!-- EXERCISE PICKER SHEET -->
+  <div class="overlay" id="overlayExercisePicker">
+    <div class="sheet">
+      <div class="sheet-grip"></div>
+      <div class="sheet-head"><h3>Choose exercises</h3><span class="close" onclick="closeOverlay('overlayExercisePicker')">Close</span></div>
+      <div class="steps-status" style="margin-bottom:4px;">Tap to toggle. Cardio exercises log time and speed instead of weight and reps.</div>
+      <div id="exercisePickerList"></div>
+      <button class="btn btn-primary" style="margin-top:18px;" onclick="saveExercisePicker()">Save routine</button>
+    </div>
+  </div>
+
   <!-- SETTINGS SHEET -->
   <div class="overlay" id="overlaySettings">
     <div class="sheet">
@@ -618,7 +629,7 @@
 
     <div class="ob-step" id="ob-3">
       <div class="ob-title">Ready to go</div>
-      <div class="ob-sub">No history is pre-filled — your diary starts empty today. A 3-day full-body workout template is ready in the Workout tab whenever you want to use it. Steps sync, barcode scanning and phone notifications are later-stage additions; food logging, weight, measurements and workouts work fully offline right now.</div>
+      <div class="ob-sub">No history is pre-filled — your diary starts empty today. A default strength + cardio routine is ready in the Workout tab, and you can swap in whichever exercises you actually want from "Choose exercises" any time. Steps sync, barcode scanning and phone notifications are later-stage additions; food logging, weight, measurements and workouts work fully offline right now.</div>
       <div class="ob-nav"><button class="btn btn-primary" onclick="finishOnboarding()">Start using the app</button></div>
     </div>
   </div>
@@ -647,17 +658,29 @@ function todayStr(){ return dateKey(new Date()); }
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
 function round1(n){ return Math.round(n*10)/10; }
 
-/* ---------------- workout template ---------------- */
-const WORKOUT_EXERCISES = [
-  {id:'leg_press', name:'Leg Press', sets:3, target:'10-12 reps', rest:90},
-  {id:'chest_press', name:'Chest Press', sets:3, target:'8-10 reps', rest:90},
-  {id:'seated_row', name:'Seated Row', sets:3, target:'10-12 reps', rest:75},
-  {id:'leg_curl', name:'Leg Curl', sets:3, target:'10-12 reps', rest:60},
-  {id:'lat_pulldown', name:'Lat Pulldown', sets:3, target:'10-12 reps', rest:75},
-  {id:'shoulder_press', name:'Shoulder Press', sets:3, target:'8-10 reps', rest:75},
-  {id:'core', name:'Core (plank / crunches)', sets:2, target:'30-45s or 15 reps', rest:45},
-  {id:'cardio', name:'Easy cardio (optional)', sets:1, target:'10-15 min', rest:0},
+/* ---------------- exercise library ---------------- */
+// type 'strength' logs {weight,reps,done} per set; type 'cardio' logs {minutes,speed,done}
+const EXERCISE_LIBRARY = [
+  {id:'squat', name:'Squat', type:'strength', category:'Legs', sets:3, target:'8-10 reps', rest:120},
+  {id:'leg_press', name:'Leg Press', type:'strength', category:'Legs', sets:3, target:'10-12 reps', rest:90},
+  {id:'leg_curl', name:'Leg Curl', type:'strength', category:'Legs', sets:3, target:'10-12 reps', rest:60},
+  {id:'leg_extension', name:'Leg Extension', type:'strength', category:'Legs', sets:3, target:'10-12 reps', rest:60},
+  {id:'calf_raise', name:'Calf Raise', type:'strength', category:'Legs', sets:3, target:'12-15 reps', rest:45},
+  {id:'chest_press', name:'Chest Press', type:'strength', category:'Push', sets:3, target:'8-10 reps', rest:90},
+  {id:'shoulder_press', name:'Shoulder Press', type:'strength', category:'Push', sets:3, target:'8-10 reps', rest:75},
+  {id:'triceps_pushdown', name:'Triceps Pushdown', type:'strength', category:'Push', sets:3, target:'10-12 reps', rest:60},
+  {id:'seated_row', name:'Seated Row', type:'strength', category:'Pull', sets:3, target:'10-12 reps', rest:75},
+  {id:'lat_pulldown', name:'Lat Pulldown', type:'strength', category:'Pull', sets:3, target:'10-12 reps', rest:75},
+  {id:'biceps_curl', name:'Biceps Curl', type:'strength', category:'Pull', sets:3, target:'10-12 reps', rest:60},
+  {id:'core', name:'Core (plank / crunches)', type:'strength', category:'Core', sets:2, target:'30-45s or 15 reps', rest:45},
+  {id:'treadmill', name:'Treadmill', type:'cardio', category:'Cardio', sets:1, target:'time & speed', rest:0},
+  {id:'cycling', name:'Cycling', type:'cardio', category:'Cardio', sets:1, target:'time & speed', rest:0},
+  {id:'elliptical', name:'Elliptical', type:'cardio', category:'Cardio', sets:1, target:'time & speed', rest:0},
+  {id:'walking', name:'Walking / incline walk', type:'cardio', category:'Cardio', sets:1, target:'time & speed', rest:0},
+  {id:'rowing_machine', name:'Rowing Machine', type:'cardio', category:'Cardio', sets:1, target:'time & speed', rest:0},
 ];
+const DEFAULT_ROUTINE = ['leg_press','chest_press','seated_row','leg_curl','lat_pulldown','shoulder_press','core','treadmill'];
+function exerciseById(id){ return EXERCISE_LIBRARY.find(x=>x.id===id); }
 
 /* ---------------- default state ---------------- */
 function defaultState(){
@@ -670,13 +693,15 @@ function defaultState(){
     diary:{},          // date -> [{id, meal, name, amount, unit, kcal, protein, carb, fat}]
     weights:[],         // {date, kg}
     measurements:[],    // {id, date, waist, hips, chest}
-    workoutSessions:[], // {id, date, entries:[{exerciseId, sets:[{weight,reps,done}]}], completed, restEndsAt}
+    workoutRoutine: DEFAULT_ROUTINE.slice(), // array of exercise ids from EXERCISE_LIBRARY
+    workoutSessions:[], // {id, date, entries:[{exerciseId, sets:[{weight,reps,done} | {minutes,speed,done}]}], completed, restEndsAt}
   };
 }
 let state = loadState() || defaultState();
 if(!state.reminders) state.reminders = { food:true, weighIn:true };
 if(!state.measurements) state.measurements = [];
 if(!state.workoutSessions) state.workoutSessions = [];
+if(!state.workoutRoutine || !state.workoutRoutine.length) state.workoutRoutine = DEFAULT_ROUTINE.slice();
 if(state.profile && state.profile.goalWeightKg === undefined) state.profile.goalWeightKg = null;
 
 /* ---------------- screen switching ---------------- */
@@ -685,7 +710,7 @@ function switchScreen(name){
   document.getElementById('screen-'+name).classList.add('active');
   document.querySelectorAll('.bottomnav button').forEach(b=>b.classList.toggle('active', b.dataset.screen===name));
   const titles = {today:['Today',''], food:['Food','Breakfast · Lunch · Dinner · Snacks'],
-    workout:['Workout','3-day full body template'], progress:['Progress','']};
+    workout:['Workout','Editable routine'], progress:['Progress','']};
   document.getElementById('topbarTitle').textContent = titles[name][0];
   document.getElementById('topbarSub').textContent = name==='today' ? niceDate(todayStr()) : titles[name][1];
   if(name==='today') renderToday();
@@ -1176,15 +1201,57 @@ function lastCompletedSession(beforeId){
   return done[0] || null;
 }
 function startWorkout(){
+  const ids = state.workoutRoutine && state.workoutRoutine.length ? state.workoutRoutine : DEFAULT_ROUTINE;
   const session = {
     id:uid(), date:todayStr(), completed:false, restEndsAt:null,
-    entries: WORKOUT_EXERCISES.map(ex=>({
-      exerciseId:ex.id,
-      sets: Array.from({length:ex.sets}, ()=>({weight:'', reps:'', done:false}))
-    }))
+    entries: ids.map(id=>{
+      const ex = exerciseById(id);
+      return {
+        exerciseId:id,
+        sets: Array.from({length:ex.sets}, ()=> ex.type==='cardio'
+          ? {minutes:'', speed:'', done:false}
+          : {weight:'', reps:'', done:false})
+      };
+    })
   };
   state.workoutSessions.push(session);
   saveState();
+  renderWorkout();
+}
+
+/* ---------------- exercise picker ---------------- */
+let pickerSelection = new Set();
+function openExercisePicker(){
+  pickerSelection = new Set(state.workoutRoutine);
+  renderExercisePicker();
+  openOverlay('overlayExercisePicker');
+}
+function toggleExercisePick(id){
+  if(pickerSelection.has(id)) pickerSelection.delete(id); else pickerSelection.add(id);
+  renderExercisePicker();
+}
+function renderExercisePicker(){
+  const cats = [];
+  EXERCISE_LIBRARY.forEach(e=>{ if(!cats.includes(e.category)) cats.push(e.category); });
+  let html='';
+  cats.forEach(cat=>{
+    html += `<div style="font-size:12px;font-weight:700;color:var(--text-dim);margin:16px 0 4px;">${cat}</div>`;
+    EXERCISE_LIBRARY.filter(e=>e.category===cat).forEach(e=>{
+      const checked = pickerSelection.has(e.id);
+      html += `<div class="list-row" style="cursor:pointer;" onclick="toggleExercisePick('${e.id}')">
+        <span>${e.name}${e.type==='cardio' ? ' <span class=\"badge-na\" style=\"margin-left:6px;\">time & speed</span>' : ''}</span>
+        <span class="set-check ${checked?'done':''}" style="width:26px;height:26px;border-radius:6px;flex-shrink:0;">${checked?'✓':''}</span>
+      </div>`;
+    });
+  });
+  document.getElementById('exercisePickerList').innerHTML = html;
+}
+function saveExercisePicker(){
+  if(pickerSelection.size===0){ toast('Pick at least one exercise'); return; }
+  state.workoutRoutine = Array.from(pickerSelection);
+  saveState();
+  closeOverlay('overlayExercisePicker');
+  toast('Routine updated');
   renderWorkout();
 }
 function setSetField(sessionId, exerciseId, setIdx, field, value){
@@ -1203,7 +1270,7 @@ function toggleSetDone(sessionId, exerciseId, setIdx){
   const set = entry.sets[setIdx];
   set.done = !set.done;
   if(set.done){
-    const ex = WORKOUT_EXERCISES.find(x=>x.id===exerciseId);
+    const ex = exerciseById(exerciseId);
     if(ex && ex.rest>0){ session.restEndsAt = Date.now() + ex.rest*1000; }
   }
   saveState();
@@ -1229,11 +1296,15 @@ function discardWorkout(sessionId){
   saveState();
   renderWorkout();
 }
-function formatLastSet(session, exerciseId, setIdx){
+function formatLastSet(session, ex, setIdx){
   if(!session) return null;
-  const entry = session.entries.find(e=>e.exerciseId===exerciseId);
+  const entry = session.entries.find(e=>e.exerciseId===ex.id);
   if(!entry || !entry.sets[setIdx]) return null;
   const s = entry.sets[setIdx];
+  if(ex.type==='cardio'){
+    if(s.minutes==='' && s.speed==='') return null;
+    return `${s.minutes||'-'}min @ ${s.speed||'-'}km/h`;
+  }
   if(s.weight==='' && s.reps==='') return null;
   return `${s.weight||'-'}kg × ${s.reps||'-'}`;
 }
@@ -1244,14 +1315,17 @@ function renderWorkout(){
 
   if(!session){
     const lastAny = state.workoutSessions.filter(s=>s.completed).sort((a,b)=>b.date.localeCompare(a.date))[0];
+    const routineNames = state.workoutRoutine.map(id=>{ const ex=exerciseById(id); return ex?ex.name:null; }).filter(Boolean).join(', ');
     wrap.innerHTML = `
       <div class="card">
-        <h2>3-day full-body routine <span class="h2-sub">editable template</span></h2>
+        <h2>Your routine <span class="h2-sub">editable</span></h2>
         <p style="font-size:13px; color:var(--text-dim); line-height:1.6; margin:0 0 14px;">
-          Leg press, chest press, seated row, leg curl, lat pulldown, shoulder press, core, plus optional easy cardio.
-          Aim for this session roughly 3 times a week — start it whenever you're training, no fixed schedule required.
+          ${routineNames || 'No exercises selected yet.'}
         </p>
-        <button class="btn btn-primary" onclick="startWorkout()">Start today's workout</button>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-ghost" style="flex:1;" onclick="openExercisePicker()">Choose exercises</button>
+          <button class="btn btn-primary" style="flex:1;" onclick="startWorkout()">Start today's workout</button>
+        </div>
       </div>
       ${lastAny ? `<div class="card"><h2>Last session</h2><div class="steps-status">${niceDate(lastAny.date)} · completed</div></div>` : ''}
     `;
@@ -1265,13 +1339,22 @@ function renderWorkout(){
   }
 
   let exHtml = '';
-  WORKOUT_EXERCISES.forEach(ex=>{
-    const entry = session.entries.find(e=>e.exerciseId===ex.id);
-    const lastNote = prev ? [0,1,2].map(i=>formatLastSet(prev, ex.id, i)).filter(Boolean).join('  ·  ') : '';
+  session.entries.forEach(entry=>{
+    const ex = exerciseById(entry.exerciseId);
+    if(!ex) return;
+    const lastNote = prev ? [0,1,2].map(i=>formatLastSet(prev, ex, i)).filter(Boolean).join('  ·  ') : '';
+    const isCardio = ex.type==='cardio';
     exHtml += `<div class="wo-ex-card">
       <div class="wo-ex-head"><span class="name">${ex.name}</span><span class="target">${ex.target}</span></div>
       ${lastNote ? `<div class="wo-last">Last time: ${lastNote}</div>` : `<div class="wo-last">No previous session yet</div>`}
-      ${entry.sets.map((s,i)=>`
+      ${entry.sets.map((s,i)=> isCardio ? `
+        <div class="wo-set-row">
+          <div class="set-idx">${i+1}</div>
+          <input type="number" placeholder="min" value="${s.minutes}" oninput="setSetField('${session.id}','${ex.id}',${i},'minutes',this.value)">
+          <input type="number" placeholder="km/h" step="0.1" value="${s.speed}" oninput="setSetField('${session.id}','${ex.id}',${i},'speed',this.value)">
+          <div class="set-check ${s.done?'done':''}" onclick="toggleSetDone('${session.id}','${ex.id}',${i})">${s.done?'✓':''}</div>
+        </div>
+      ` : `
         <div class="wo-set-row">
           <div class="set-idx">${i+1}</div>
           <input type="number" placeholder="kg" value="${s.weight}" oninput="setSetField('${session.id}','${ex.id}',${i},'weight',this.value)">
@@ -1393,8 +1476,20 @@ function renderProgress(){
   } else {
     woWrap.innerHTML = done.slice(0,8).map(s=>{
       const totalSets = s.entries.reduce((a,e)=>a+e.sets.filter(x=>x.done).length,0);
-      const volume = s.entries.reduce((a,e)=>a+e.sets.reduce((a2,x)=>a2+((Number(x.weight)||0)*(Number(x.reps)||0)),0),0);
-      return `<div class="wo-hist-row"><span>${niceDate(s.date)}</span><span>${totalSets} sets · ${Math.round(volume)} kg·reps</span></div>`;
+      const volume = s.entries.reduce((a,e)=>{
+        const ex = exerciseById(e.exerciseId);
+        if(ex && ex.type==='cardio') return a;
+        return a+e.sets.reduce((a2,x)=>a2+((Number(x.weight)||0)*(Number(x.reps)||0)),0);
+      },0);
+      const cardioMin = s.entries.reduce((a,e)=>{
+        const ex = exerciseById(e.exerciseId);
+        if(!ex || ex.type!=='cardio') return a;
+        return a+e.sets.reduce((a2,x)=>a2+(Number(x.minutes)||0),0);
+      },0);
+      const parts = [totalSets+' sets'];
+      if(volume>0) parts.push(Math.round(volume)+' kg·reps');
+      if(cardioMin>0) parts.push(cardioMin+' min cardio');
+      return `<div class="wo-hist-row"><span>${niceDate(s.date)}</span><span>${parts.join(' · ')}</span></div>`;
     }).join('');
   }
 }

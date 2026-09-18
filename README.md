@@ -12,9 +12,11 @@ so whatever you enter never leaves your device.
   notifications — see Settings).
 - **Food**: meal diary, recent-food quick-add chips, saved foods, "copy
   yesterday" to repeat a typical day fast.
-- **Workout**: editable 3-day full-body routine (leg press, chest press,
-  seated row, leg curl, lat pulldown, shoulder press, core, optional cardio)
-  with per-set weight/reps logging, a rest timer, and last-session comparison.
+- **Workout**: pick your own routine from a library of strength exercises
+  (legs, push, pull, core) and cardio machines (treadmill, cycling,
+  elliptical, walking, rowing). Strength exercises log weight/reps per set
+  with a rest timer; cardio exercises log time and speed instead. Shows
+  last-session comparison and workout history.
 - **Progress**: weight trend sparkline, 7-day calorie history, optional body
   measurements (waist/hips/chest), workout history.
 - **Settings**: targets, goal weight, reminder toggles, JSON export/import
